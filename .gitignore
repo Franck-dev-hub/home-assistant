@@ -1,0 +1,30 @@
+# Environment
+.env
+.env.dev
+
+# Home Assistant
+homeassistant_config/*
+!homeassistant_config/*.yaml
+!homeassistant_config/blueprints/
+homeassistant_config/.*
+homeassistant_config/*.db
+homeassistant_config/*.log*
+homeassistant_config/*.fault
+homeassistant_config/secrets.yaml
+
+# Mosquitto
+mosquitto/data/
+mosquitto/log/
+
+# Zigbee2MQTT
+zigbee2mqtt/data/state.json
+zigbee2mqtt/data/log/
+zigbee2mqtt/data/*.log
+zigbee2mqtt/data/configuration_backup_*.yaml
+zigbee2mqtt/data/coordinator_backup.json
+zigbee2mqtt/data/database.db
+zigbee2mqtt/data/configuration.yaml
+
+# OS & Trash
+.DS_Store
+README.html
