@@ -3,6 +3,8 @@
 After many years with HAOS (Home Assistant Oparating System), I moved on HA with docker compose.<br>
 The goal is to have a full control on my HA and deploy it on my local server.
 
+> ⚠️ You are on IOS branch ⚠️
+
 ## Table of contents
 - [Description](#description)
 - [Table of contents](#table-of-contents)
@@ -21,12 +23,12 @@ The goal is to have a full control on my HA and deploy it on my local server.
 #### Software
 -  ![Docker v29.2.1](https://img.shields.io/badge/Docker-v29.2.1-gray?logo=docker&logoColor=fff&labelColor=2496ED) or higher.
 -  ![Docker Compose v5.0.2](https://img.shields.io/badge/Docker%20Compose-v5.0.2-gray?logo=docker&logoColor=fff&labelColor=2496ED) or higher.
-- Develloped on ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu&logoColor=fff),
-deployed on ![iOS](https://img.shields.io/badge/iOS-000000?&logo=apple&logoColor=fff)
+- ![npm](https://img.shields.io/badge/npm-v20.20-gray?logo=npm&logoColor=fff&labelColor=CB3837)
+- Tested on ![iOS](https://img.shields.io/badge/iOS-000000?&logo=apple&logoColor=fff)
+
 #### Hardware
 - ![SkyConnect](https://img.shields.io/badge/SkyConnect-ZBT--1-gray?logo=zigbee&logoColor=fff&labelColor=007ACC) dongle
-- ![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=000)
-or ![iOS](https://img.shields.io/badge/iOS-000000?&logo=apple&logoColor=fff) server
+- ![iOS](https://img.shields.io/badge/iOS-000000?&logo=apple&logoColor=fff) server
 
 
 ### Technologies used
@@ -40,41 +42,65 @@ or ![iOS](https://img.shields.io/badge/iOS-000000?&logo=apple&logoColor=fff) ser
 - ![Zigbee](https://img.shields.io/badge/Zigbee-Driver-gray?logo=zigbee&logoColor=fff&labelColor=EB0443)
 
 ### Installation and run
-1. Clone the repository.
+1. Clone the repository
 ```bash
-git clone https://github.com/Franck-dev-hub/home-assistant && cd home-assistant
+git clone https://github.com/Franck-dev-hub/home-assistant
+cd home-assistant
 ```
 
-2. Create zigbee config file
+2. Install npm (If needed)
+```bash
+nvm install 22
+nvm use 22
+```
+
+3. Install Zigbee2mqtt
+```bash
+git clone https://github.com/Koenkk/zigbee2mqtt.git
+cd zigbee2mqtt
+npm install
+```
+
+4. Create zigbee config file (copy paste in your terminal)
 ```bash
 mkdir -r zigbee2mqtt/data/configuration.yaml
 touch zigbee2mqtt/data/configuration.yaml
 cat <<EOF > zigbee2mqtt/data/configuration.yaml
 homeassistant:
   enabled: true
+
 mqtt:
   base_topic: zigbee2mqtt
-  server: mqtt://localhost:1883
+  server: mqtt://mqtt:1883
+
+serial:
+  port: tcp://host.docker.internal:12345
+  adapter: ember
+  rtscts: true
+
 frontend:
   enabled: true
-serial:
-  port: /dev/ttyACM0
-  adapter: ember
+  port: 8080
+  host: 0.0.0.0
 EOF
 ```
 
-3. Find dongle location
+5. Find dongle location
+
 ```bash
-ls /dev/serial/by-id/
+ls /dev/cu.usb*
 ```
 
-4. Set .env variables
+6. Set .env variables
+
 ```bash
 cp .env.exemple .env
 ```
+
 > Then paste the dongle path in `.env` file
 
-5. Launch docker compose
+7. Launch docker compose
+
 ```bash
 docker compose up -d
 ```
@@ -123,7 +149,7 @@ docker compose logs
 - ![Docker Compose v5.0.2](https://img.shields.io/badge/Docker-Compose%20v5.0.2-gray?logo=docker&logoColor=fff&labelColor=2496ED) or higher is installed.
 
 ## Authors
-- **Franck Spadotto** [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=white)](#https://github.com/Franck-dev-hub)
+- **Franck Spadotto** [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?logo=github&logoColor=fff)](#https://github.com/Franck-dev-hub)
 
 ## License
 This project is licensed under GNU AGPL v3.0 - see the LICENSE.txt file for details.

@@ -3,21 +3,22 @@ services:
     container_name: homeassistant
     image: homeassistant/home-assistant:stable
     restart: always
-    privileged: true
-    network_mode: host
+    ports:
+      - "8123:8123"
     volumes:
       - ./homeassistant_config:/config
       - /etc/localtime:/etc/localtime:ro
-      - /run/dbus:/run/dbus:ro
-    env_file:
-      - .env
+    depends_on:
+      - mqtt
+    environment:
+      - TZ=Europe/Paris
 
   mqtt:
     image: eclipse-mosquitto:2
     container_name: mqtt
-    user: "0:0"
     restart: always
-    network_mode: host
+    ports:
+      - "1883:1883"
     volumes:
       - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - ./mosquitto/data:/mosquitto/data
@@ -27,22 +28,13 @@ services:
     image: koenkk/zigbee2mqtt:latest
     container_name: zigbee2mqtt
     restart: always
-    network_mode: host
-    depends_on:
-      - mqtt
+    ports:
+      - "8080:8080"
     volumes:
       - ./zigbee2mqtt/data:/app/data
-      - /run/udev:/run/udev:ro
-    devices:
-      - ${ZIGBEE_DONGLE}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - mqtt
     environment:
       - TZ=Europe/Paris
-
-# --- To be implemented ---
-# Moonraker
-# Windy
-# Spotify
-# Telegram
-# Thread
-# Toyota EU
-#Tuya

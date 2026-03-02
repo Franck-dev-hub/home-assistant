@@ -17,13 +17,10 @@ mosquitto/data/
 mosquitto/log/
 
 # Zigbee2MQTT
-zigbee2mqtt/data/state.json
-zigbee2mqtt/data/log/
-zigbee2mqtt/data/*.log
-zigbee2mqtt/data/configuration_backup_*.yaml
-zigbee2mqtt/data/coordinator_backup.json
-zigbee2mqtt/data/database.db
-zigbee2mqtt/data/configuration.yaml
+zigbee2mqtt/
+
+# Logs
+*.log
 
 # OS & Trash
 .DS_Store
