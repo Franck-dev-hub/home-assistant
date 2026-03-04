@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Kiil remaining process
+# Kill remaining process
 killall socat 2>/dev/null
 sleep 1
 
@@ -13,6 +13,9 @@ fi
 socat -v TCP-LISTEN:12345,reuseaddr,fork /dev/cu.usbserial-220,raw,echo=0,ispeed=115200,ospeed=115200,crtscts=1 > socat.log 2>&1 &
 
 sleep 2
+
+# Launch local LLM
+brew services start ollama
 
 # Check if port 12345 is open
 #lsof -nP -iTCP:12345 -sTCP:LISTEN
