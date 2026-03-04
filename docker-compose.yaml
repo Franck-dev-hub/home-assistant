@@ -38,3 +38,12 @@ services:
       - mqtt
     environment:
       - TZ=Europe/Paris
+
+# --- To be implemented ---
+# Moonraker
+# Windy
+# Spotify
+# Telegram
+# Thread
+# Toyota EU
+#Tuya

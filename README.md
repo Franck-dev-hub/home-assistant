@@ -99,10 +99,12 @@ cp .env.exemple .env
 
 > Then paste the dongle path in `.env` file
 
-7. Launch docker compose
+> If you have a backup, you can restore connected devices by coping `zigbee2mqtt/data/database.db`
+
+7. Launch the project
 
 ```bash
-docker compose up -d
+./start.sh
 ```
 
 ## Usage

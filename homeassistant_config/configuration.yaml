@@ -1,10 +1,12 @@
-
 # Loads default set of integrations. Do not remove.
 default_config:
 
 # Load frontend themes from the themes folder
 frontend:
   themes: !include_dir_merge_named themes
+  extra_module_url:
+    # Voir https://elax46.github.io/custom-brand-icons/
+    - /local/community/custom-brand-icons/custom-brand-icons.js
 
 automation: !include automations.yaml
 script: !include scripts.yaml
