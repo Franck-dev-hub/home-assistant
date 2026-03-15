@@ -112,6 +112,20 @@ services:
     networks:
       - smarthome
 
+  dashboard:
+    build: ./dashboard
+    container_name: dashboard
+    restart: always
+    ports:
+      - "8880:80"
+    volumes:
+      - ./dashboard/config.js:/usr/share/nginx/html/config.js
+    environment:
+      - HA_URL=${HA_URL}
+      - HA_TOKEN=${HA_TOKEN}
+    networks:
+      - smarthome
+
 volumes:
   ollama_data:
   stt_data:
