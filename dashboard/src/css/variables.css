@@ -1,0 +1,28 @@
+/* Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Variables */
+:root {
+    --bg: #0a0b14;
+    --surface: #10121f;
+    --surface2: #161929;
+    --border: rgba(102, 126, 234, 0.10);
+    --border-hover: rgba(102, 126, 234, 0.35);
+    --text: #e8e6f0;
+    --muted: #6b7280;
+    --accent: #667EEA;
+    --accent-glow: rgba(102, 126, 234, 0.07);
+    --light-accent: #c8a96e;
+    --light-accent-light-1: #fcda9d;
+    --light-accent-light-2: #ffffce;
+    --light-accent-dark-1: #967a42;
+    --light-accent-dark-2: #654e17;
+    --green: #5a9e7a;
+    --warm: #e07b54;
+    --radius: 16px;
+    --radius-sm: 10px;
+}
