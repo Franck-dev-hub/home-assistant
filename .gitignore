@@ -1,6 +1,10 @@
 # Environment
 .env
 .env.dev
+dashboard/config.js
+
+# IDEs
+.idea/
 
 # Home Assistant
 homeassistant_config/*
