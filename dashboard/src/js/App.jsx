@@ -1,8 +1,10 @@
 import {useState, useEffect} from "react";
 
 import {getAllLights} from "./api/HomeAssistant.jsx"
+import {getAllSwitches} from "./api/HomeAssistant.jsx"
 
 import LightCard from "./components/LightCard.jsx";
+import SwitchCard from "./components/SwitchCard.jsx";
 import Header from "./components/Header.jsx";
 
 const HA_URL = window.HA_URL
@@ -14,9 +16,11 @@ const HEADERS = {
 
 export default function App() {
     const [lights, setLights] = useState([]);
+    const [switches, setSwitches] = useState([]);
 
     useEffect(() => {
         getAllLights().then(data => setLights(data))
+        getAllSwitches().then(data => setSwitches(data))
     }, []);
 
     return (
@@ -27,6 +31,14 @@ export default function App() {
                 <div className="lights-grid">
                     {lights.map(entity => (
                         <LightCard key={entity.id} entity={entity} headers={HEADERS} haUrl={HA_URL}/>
+                    ))}
+                </div>
+            </div>
+            <div className="main-card">
+                <h2 className="light-h2">Switches</h2>
+                <div className="lights-grid">
+                    {switches.map(entity => (
+                        <SwitchCard key={entity.id} entity={entity} headers={HEADERS} haUrl={HA_URL}/>
                     ))}
                 </div>
             </div>
