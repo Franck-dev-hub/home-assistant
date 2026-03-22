@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Lightbulb, LightbulbOff} from "lucide-react";
 
-import {toggleLight} from "../api/HomeAssistant.jsx"
+import {toggleLight} from "../api/toggleEntity.jsx"
 
 import "../../css/light.css";
 import "../../css/toggle.css";

@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Power, PowerOff} from "lucide-react";
 
-import {toggleSwitch} from "../api/HomeAssistant.jsx"
+import {toggleSwitch} from "../api/toggleEntity.jsx"
 
 import "../../css/switch.css";
 import "../../css/toggle.css";
