@@ -1,11 +1,12 @@
 import {useState, useEffect} from "react";
 
-import {getAllLights} from "./api/HomeAssistant.jsx"
-import {getAllSwitches} from "./api/HomeAssistant.jsx"
+import {getLights, getSwitches} from "./api/HomeAssistant.jsx"
 
 import LightCard from "./components/LightCard.jsx";
 import SwitchCard from "./components/SwitchCard.jsx";
 import Header from "./components/Header.jsx";
+
+import "../css/card.css";
 
 const HA_URL = window.HA_URL
 const HA_TOKEN = window.HA_TOKEN
@@ -19,24 +20,24 @@ export default function App() {
     const [switches, setSwitches] = useState([]);
 
     useEffect(() => {
-        getAllLights().then(data => setLights(data))
-        getAllSwitches().then(data => setSwitches(data))
+        getLights().then(data => setLights(data))
+        getSwitches().then(data => setSwitches(data))
     }, []);
 
     return (
         <div>
             <Header/>
             <div className="main-card">
-                <h2 className="light-h2">Lumières</h2>
-                <div className="lights-grid">
+                <h2 className="card-h2">Lumières</h2>
+                <div className="cards-grid">
                     {lights.map(entity => (
                         <LightCard key={entity.id} entity={entity} headers={HEADERS} haUrl={HA_URL}/>
                     ))}
                 </div>
             </div>
             <div className="main-card">
-                <h2 className="light-h2">Switches</h2>
-                <div className="lights-grid">
+                <h2 className="card-h2">Prises</h2>
+                <div className="cards-grid">
                     {switches.map(entity => (
                         <SwitchCard key={entity.id} entity={entity} headers={HEADERS} haUrl={HA_URL}/>
                     ))}

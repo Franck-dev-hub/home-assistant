@@ -1,12 +1,14 @@
 const HA_URL = window.HA_URL
 const HA_TOKEN = window.HA_TOKEN
+const HA_LIGHTS = window.HA_LIGHTS
+const HA_SWITCHES = window.HA_SWITCHES
 const HEADERS = {
     "Authorization": `Bearer ${HA_TOKEN}`,
     "Content-Type": "application/json"
 }
 
 // Common function
-async function fetchAllStates() {
+async function getAllStates() {
     const response = await fetch(`${HA_URL}/api/states`, {headers: HEADERS});
     return await response.json();
 }
@@ -20,16 +22,23 @@ function mapEntity(entity) {
     }
 }
 
-async function getEntityByType(type) {
-    const data = await fetchAllStates();
-    return data.filter(e => e.entity_id.startsWith(`${type}.`)).map(mapEntity)
+// Get wanted lights
+export async function getLights() {
+    const data = await getAllStates();
+    return data
+        .filter(e => HA_LIGHTS.includes(e.entity_id))
+        .map(mapEntity)
 }
 
-export const getAllLights = () => getEntityByType("light")
-export const getAllSensors = () => getEntityByType("sensor")
-export const getAllSwitches = () => getEntityByType("switch")
+// Get wanted switches
+export async function getSwitches() {
+    const data = await getAllStates();
+    return data
+        .filter(e => HA_SWITCHES.includes(e.entity_id))
+        .map(mapEntity)
+}
 
-// Toggle swight on & off
+// Toggle light on & off
 export async function toggleLight(entityId, isActive) {
     const service = isActive ? "turn_off" : "turn_on"
     await fetch(`${HA_URL}/api/services/light/${service}`, {

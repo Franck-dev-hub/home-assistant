@@ -4,6 +4,7 @@ import {Power, PowerOff} from "lucide-react";
 import {toggleSwitch} from "../api/HomeAssistant.jsx"
 
 import "../../css/switch.css";
+import "../../css/toggle.css";
 
 export default function SwitchCard({entity}) {
     const [active, setActive] = useState(entity.isActive);

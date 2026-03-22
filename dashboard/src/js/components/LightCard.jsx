@@ -4,6 +4,7 @@ import {Lightbulb, LightbulbOff} from "lucide-react";
 import {toggleLight} from "../api/HomeAssistant.jsx"
 
 import "../../css/light.css";
+import "../../css/toggle.css";
 
 export default function LightCard({entity}) {
     const [active, setActive] = useState(entity.isActive);
