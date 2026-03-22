@@ -6,7 +6,7 @@ import {toggleSwitch} from "../api/toggleEntity.jsx"
 import "../../css/switch.css";
 import "../../css/toggle.css";
 
-export default function SwitchCard({entity}) {
+function SwitchItem({entity}) {
     const [active, setActive] = useState(entity.isActive);
 
     async function handleClick() {
@@ -19,8 +19,7 @@ export default function SwitchCard({entity}) {
     }
 
     return (
-        <div className={`switch-item ${active ? "on" : ""}`}
-             onClick={handleClick}>
+        <div className={`switch-item ${active ? "on" : ""}`} onClick={handleClick}>
             <div className="switch-item-left">
                 <div className="switch-icon">
                     {active
@@ -35,6 +34,19 @@ export default function SwitchCard({entity}) {
                 <div className={`toggle ${active ? "on" : ""}`}>
                     <div className="toggle-knob"></div>
                 </div>
+            </div>
+        </div>
+    );
+}
+
+export default function SwitchCard({switches}) {
+    return (
+        <div className="main-card">
+            <h2 className="card-h2">Prises</h2>
+            <div className="cards-grid">
+                {switches.map(entity => (
+                    <SwitchItem key={entity.id} entity={entity}/>
+                ))}
             </div>
         </div>
     );
