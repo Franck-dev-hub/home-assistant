@@ -1,14 +1,13 @@
-FROM node:20-alpine AS build-stage
+FROM node:20-alpine AS deps
 WORKDIR /app
-COPY package*.json ./
-RUN npm install --legacy-peer-deps
+RUN corepack enable
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+FROM deps AS build-stage
 COPY . .
-RUN npm run build
+RUN pnpm build
 
 FROM nginx:alpine
 COPY --from=build-stage /app/dist /usr/share/nginx/html
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+COPY nginx.conf /etc/nginx/conf.d/default.conf
