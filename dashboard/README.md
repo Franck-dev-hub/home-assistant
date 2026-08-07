@@ -1,16 +1,56 @@
-# React + Vite
+# Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Home-made dashboard for Home Assistant (Vue 3 + Vite), designed to be simple and easy to read day to day rather than
+technical. Groups entities by room, with a light/dark theme (toggle button in the header), served in an iframe within
+HA's "Dashboard" view.
 
-Currently, two official plugins are available:
+## Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The dashboard never talks directly to the Home Assistant API: it goes through [`dashboard-proxy`](../dashboard-proxy), a
+small Node service that keeps the HA token server-side. The token is therefore never exposed to the browser.
 
-## React Compiler
+```
+browser -> dashboard (nginx) -> dashboard-proxy (Node) -> Home Assistant
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Adding a room / entity
 
-## Expanding the ESLint configuration
+Everything lives in `config.js` (not versioned, gitignored):
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```js
+export const config = {
+    GREETING_NAME: "",
+    ROOMS: [
+        {
+            id: "kitchen",
+            name: "Kitchen",
+            icon: "ChefHat", // lucide-vue-next icon name
+            lights: ["light.kitchen_light_1"],
+            switches: [],
+        },
+    ],
+};
+```
+
+No component changes needed, the room card and its tiles are generated automatically.
+
+## Local development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Serves on `http://localhost:3000` with hot reload, against the real `dashboard-proxy`/HA (so toggles are real, test on
+non-critical entities).
+
+## Deployment
+
+From the repo root:
+
+```bash
+make build/dashboard
+```
+
+Builds the image (nginx + static assets) and restarts the container. See the [root README](../README.md) for the rest of
+the stack.
