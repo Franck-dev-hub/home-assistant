@@ -1,1 +1,21 @@
-[]
+- id: '1780680191072'
+  alias: Auto lumière cuisine
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 925c53c41d003e92360e41dfa0d82940
+    entity_id: 8269dc021d08cb3354e626c088e89a50
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: sun
+    before: sunrise
+    after: sunset
+    enabled: true
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    target:
+      device_id: fc1b0e8134abb1143349a8dab497b18a
+    data: {}
+  mode: single
