@@ -1,0 +1,42 @@
+.room-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeUp 0.5s ease both;
+}
+
+.room-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+.room-card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.room-card-title h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.room-icon {
+    color: var(--accent);
+}
+
+.room-count {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.room-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+}

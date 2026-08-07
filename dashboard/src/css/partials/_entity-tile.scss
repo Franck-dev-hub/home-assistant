@@ -1,0 +1,58 @@
+.entity-tile {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  backdrop-filter: blur(var(--surface-blur));
+  -webkit-backdrop-filter: blur(var(--surface-blur));
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.entity-tile:hover {
+  box-shadow: var(--shadow-soft);
+}
+
+.entity-tile.on {
+  border-color: var(--border-hover);
+  background: linear-gradient(180deg, var(--accent-soft), var(--surface-2));
+}
+
+.entity-tile-icon {
+  color: var(--muted);
+  display: flex;
+  transition: color 0.3s ease;
+}
+
+.entity-tile.on .entity-tile-icon {
+  color: var(--accent);
+}
+
+.entity-tile-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.entity-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.entity-state {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.entity-tile.on .entity-state {
+  color: var(--accent-strong);
+}

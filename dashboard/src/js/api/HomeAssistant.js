@@ -1,6 +1,6 @@
 // Common function
 export async function getAllStates() {
-    const response = await fetch(`${window.HA_URL}/api/states`, {headers: window.HEADERS});
+    const response = await fetch("/api/ha/states");
     return await response.json();
 }
 
@@ -10,5 +10,5 @@ export function mapEntity(entity) {
         id: entity.entity_id,
         name: entity.attributes.friendly_name,
         isActive: entity.state === "on",
-    }
+    };
 }

@@ -1,0 +1,27 @@
+.summary-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+}
+
+.pill-icon {
+    color: var(--accent);
+}
+
+.pill-value {
+    font-weight: 700;
+    color: var(--text);
+}
+
+.pill-label {
+    color: var(--muted);
+}
