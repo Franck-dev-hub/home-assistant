@@ -1,6 +1,5 @@
 # Environment
-.env
-.env.dev
+.env.local
 dashboard/config.js
 
 # IDEs

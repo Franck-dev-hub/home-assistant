@@ -1,58 +1,77 @@
-# Variables
-DC_DEV = docker compose --env-file .env.dev
-DC_PROD = docker compose --env-file .env
-DCD = docker compose down
+.DEFAULT_GOAL := help
 
-.PHONY: dev build-dev prod build-prod stop clean start help
+DC = docker compose --env-file .env.local
 
-# Start socat + ollama + docker
+SERVICES := homeassistant mqtt zigbee2mqtt dashboard-proxy dashboard
+
+ZIGBEE_DEVICE := /dev/cu.usbserial-220
+ZIGBEE_TCP_PORT := 12345
+
+.PHONY: help env start up build down logs prune
+
+# === ENV ===
+env:
+	@test -f .env.local || { \
+		cp .env .env.local; \
+		while IFS= read -r line; do \
+			case "$$line" in \
+				*=change-me) key=$${line%%=*}; secret=$$(openssl rand -hex 32); \
+					sed -i "" "s|^$$key=change-me$$|$$key=$$secret|" .env.local ;; \
+			esac; \
+		done < .env; \
+	}
+	@echo ".env.local ready."
+	@grep -E '^[A-Z_]+=$$' .env.local && echo "^ fill these in before starting the stack" || true
+
+# === STACK ===
 start:
-	@./start.sh
+	@killall socat 2>/dev/null; sleep 1
+	@test -e $(ZIGBEE_DEVICE) || { echo "Error: SkyConnect not found on $(ZIGBEE_DEVICE)"; exit 1; }
+	socat -v TCP-LISTEN:$(ZIGBEE_TCP_PORT),reuseaddr,fork $(ZIGBEE_DEVICE),raw,echo=0,ispeed=115200,ospeed=115200,crtscts=1 > socat.log 2>&1 &
+	sleep 2
+	brew services start ollama
+	$(MAKE) up
 
-# Development mode
-dev:
-	$(DC_DEV) up -d
+up: env
+	$(DC) up -d
 
-# Re-build in dev mode
-build-dev:
-	$(DCD) -v
-	docker builder prune
-	$(DC_DEV) up --build -d
+build: env
+	$(DC) up --build -d
 
-# Production mode
-prod:
-	$(DC_PROD) up -d
+build/%:
+	$(DC) up --build --no-deps -d $*
 
-# Re-build in prod mode
-build-prod:
-	$(DCD) -v
-	docker builder prune
-	$(DC_PROD) up --build -d
+down:
+	$(DC) down
 
-# Rebuild a specific service
-rebuild:
-	$(DC_DEV) up --build --no-deps -d $(service)
+logs:
+	$(DC) logs -f
 
-# Down services
-stop:
-	$(DCD)
+logs/%:
+	$(DC) logs -f $*
 
-# Clean Docker
-clean:
-	$(DCD) -v
-	docker builder prune
+# === MISC ===
 
-# Help
+prune:
+	git fetch --prune
+	git branch --format '%(refname:short) %(upstream:track)' | awk '$$2 == "[gone]" {print $$1}' | xargs -r git branch -d
+
+# === HELP ===
 help:
-	@echo "Commands allowed :"
-	@echo "  make start      -> Start socat + ollama + docker"
+	@echo " Services : $(SERVICES)"
 	@echo ""
-	@echo "  make dev        -> Start project in dev mode"
-	@echo "  make build-dev  -> Re-build project in dev mode"
+	@echo "----- ENV ---------------------------------"
+	@echo "  env              -> Generate gitignored .env.local"
 	@echo ""
-	@echo "  make prod       -> Start project in prod mode"
-	@echo "  make build-prod -> Re-build project in prod mode"
+	@echo "----- STACK --------------------------------"
+	@echo "  start            -> Full bootstrap: Zigbee bridge + ollama + stack"
+	@echo "  up               -> Start the stack"
+	@echo "  build            -> Build + start the stack"
+	@echo "  build/{service}  -> Rebuild/restart one service"
+	@echo "  down             -> Stop the stack"
+	@echo "  logs             -> Tail all logs"
+	@echo "  logs/{service}   -> Tail one service's logs"
 	@echo ""
-	@echo "  make rebuild service=<service> -> Re-build a specific service"
-	@echo "  make stop       -> Down services"
-	@echo "  make clean      -> Clean services"
+	@echo "----- MISC ----------------------------------"
+	@echo "  prune            -> Delete merged local branches"
+	@echo ""
