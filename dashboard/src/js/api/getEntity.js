@@ -57,7 +57,7 @@ export async function getRooms() {
                 if (!entity) {
                     return null;
                 }
-                return {type: tile.type, ...mapEntity(entity)};
+                return {type: tile.type, icon: tile.icon, ...mapEntity(entity)};
             })
             .filter(Boolean);
 

@@ -1,7 +1,7 @@
 <script setup>
 import {computed} from "vue";
 
-import {ENTITY_ICONS} from "../constants/entityIcons.js";
+import {resolveEntityIcon} from "../utils/entityIcon.js";
 import {useEntityToggle} from "../composables/useEntityToggle.js";
 import ToggleSwitch from "./ToggleSwitch.vue";
 
@@ -11,7 +11,7 @@ const props = defineProps({
 });
 
 const {active, toggle} = useEntityToggle(props.entity, props.type);
-const icon = computed(() => (active.value ? ENTITY_ICONS[props.type].on : ENTITY_ICONS[props.type].off));
+const icon = computed(() => resolveEntityIcon(props.entity, active.value));
 </script>
 
 <template>

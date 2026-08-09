@@ -37,6 +37,18 @@ export const config = {
 
 No component changes needed, the room card and its tiles are generated automatically.
 
+### Icon override
+
+A light/switch tile can set `icon` to override the default bulb/plug icon, using an `@tabler/icons-vue` name (without
+the `Icon` prefix):
+
+```js
+{type: "switch", id: "switch.kitchen_outlet", icon: "Usb"}                 // same icon for both states
+{type: "switch", id: "switch.kitchen_outlet", icon: ["Usb", "PlugX"]}      // distinct on/off icons
+```
+
+Falls back to the default type-based icon if the name doesn't resolve (see `src/js/utils/entityIcon.js`).
+
 ### Custom tiles
 
 A tile can also be `{type: "custom", component: "someKey"}`. Each custom integration is self-contained under
