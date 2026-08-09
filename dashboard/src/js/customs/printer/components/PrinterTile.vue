@@ -1,12 +1,12 @@
 <script setup>
 import {computed, ref} from "vue";
 import {mdiPrinter3d, mdiPrinter3dOff} from "@mdi/js";
-import MdiIcon from "./MdiIcon.vue";
+import MdiIcon from "../../../components/MdiIcon.vue";
 
 import {usePrinterData} from "../composables/usePrinterData.js";
-import {useOptimisticValue} from "../composables/useOptimisticValue.js";
-import {setSwitchActive} from "../composables/dashboardStore.js";
-import {toggleSwitch} from "../api/toggleEntity.js";
+import {useOptimisticValue} from "../../../composables/useOptimisticValue.js";
+import {setSwitchActive} from "../../../composables/dashboardStore.js";
+import {toggleSwitch} from "../../../api/toggleEntity.js";
 import {printerStateLabel} from "../constants/printerStates.js";
 import PrinterModal from "./PrinterModal.vue";
 

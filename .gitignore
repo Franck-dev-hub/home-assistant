@@ -1,7 +1,7 @@
 # Environment
 .env.local
 dashboard/config.js
-dashboard/config/*
+dashboard/src/js/customs/*/config.js
 
 # IDEs
 .idea/

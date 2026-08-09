@@ -1,7 +1,8 @@
-import {fetchStateIndex, mapEntity} from "./HomeAssistant.js";
+import {PRINTER} from "../config.js";
+import {fetchStateIndex, mapEntity} from "../../../api/HomeAssistant.js";
 
 export async function getPrinter() {
-    const printer = window.PRINTER;
+    const printer = PRINTER;
     if (!printer) {
         return null;
     }

@@ -39,11 +39,32 @@ No component changes needed, the room card and its tiles are generated automatic
 
 ### Custom tiles
 
-A tile can also be `{type: "custom", component: "someKey"}`, resolved against the registry in
-`src/js/constants/customCards.js`  
-Used for entities that need richer UI than a simple light/switch toggle (e.g. the 3D printer tile: power switch, live
-temps/progress/camera feed, opens a modal with a link to Fluidd).  
-Add a new key to the registry and its config block (see `PRINTER` in `config.js`) to add another custom tile type.
+A tile can also be `{type: "custom", component: "someKey"}`. Each custom integration is self-contained under
+`src/js/customs/<someKey>/`:
+
+```
+src/js/customs/
+    registry.js              # maps component key -> Vue component, imported by RoomCard.vue
+    index.js                 # auto-discovers every customs/*/config.js (import.meta.glob)
+    printer/
+        config.js             # not versioned, gitignored - real entity ids/URLs
+        components/
+        composables/
+        api/
+        constants/
+```
+
+To add a new custom tile type:
+
+1. Create `src/js/customs/<name>/config.js` exporting your config object (gitignored automatically, see root
+   `.gitignore`). Set `category: "light" | "switch"` and a `powerSwitch` entity id if it should count toward the
+   summary totals.
+2. Build the tile/modal components under `src/js/customs/<name>/`, importing the config directly
+   (e.g. `import {PRINTER} from "../config.js"` from within `customs/printer/api/getPrinter.js`).
+3. Register the tile component in `src/js/customs/registry.js`.
+4. Reference it in a room's `tiles` with `{type: "custom", component: "<name>"}`.
+
+Nothing else needs to change, dashboard/config.js and main.js stay generic.
 
 ## Local development
 

@@ -4,11 +4,11 @@ import {IconBed, IconBulb, IconClock, IconExternalLink, IconPlayerPause, IconPla
 import {mdiPrinter3d, mdiPrinter3dNozzleHeat, mdiPrinter3dOff} from "@mdi/js";
 
 import {printerStateColor, printerStateLabel} from "../constants/printerStates.js";
-import {pressButton, setNumberValue} from "../api/toggleEntity.js";
-import {useOptimisticValue} from "../composables/useOptimisticValue.js";
-import ToggleSwitch from "./ToggleSwitch.vue";
-import Modal from "./Modal.vue";
-import MdiIcon from "./MdiIcon.vue";
+import {pressButton, setNumberValue} from "../../../api/toggleEntity.js";
+import {useOptimisticValue} from "../../../composables/useOptimisticValue.js";
+import ToggleSwitch from "../../../components/ToggleSwitch.vue";
+import Modal from "../../../components/Modal.vue";
+import MdiIcon from "../../../components/MdiIcon.vue";
 
 const props = defineProps({
     printer: {type: Object, required: true},

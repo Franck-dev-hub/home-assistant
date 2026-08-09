@@ -1,12 +1,15 @@
 import {fetchStateIndex, mapEntity} from "./HomeAssistant.js";
+import {CUSTOM_CONFIGS} from "../customs/index.js";
 
 function tilesOfType(type) {
     return window.ROOMS.flatMap(room => room.tiles.filter(t => t.type === type));
 }
 
-function printerEntity(byId) {
-    const powerSwitch = window.PRINTER?.powerSwitch;
-    return (powerSwitch && byId.get(powerSwitch)) || null;
+function customEntities(byId, category) {
+    return CUSTOM_CONFIGS
+        .filter(c => c.category === category && c.powerSwitch)
+        .map(c => byId.get(c.powerSwitch))
+        .filter(Boolean);
 }
 
 export async function getLights() {
@@ -16,10 +19,9 @@ export async function getLights() {
         .filter(Boolean)
         .map(mapEntity);
 
-    if (window.PRINTER?.category === "light") {
-        const printerPower = printerEntity(byId);
-        if (printerPower && !lights.some(l => l.id === printerPower.entity_id)) {
-            lights.push(mapEntity(printerPower));
+    for (const entity of customEntities(byId, "light")) {
+        if (!lights.some(l => l.id === entity.entity_id)) {
+            lights.push(mapEntity(entity));
         }
     }
 
@@ -33,10 +35,9 @@ export async function getSwitches() {
         .filter(Boolean)
         .map(mapEntity);
 
-    if (window.PRINTER?.category === "switch") {
-        const printerPower = printerEntity(byId);
-        if (printerPower && !switches.some(s => s.id === printerPower.entity_id)) {
-            switches.push(mapEntity(printerPower));
+    for (const entity of customEntities(byId, "switch")) {
+        if (!switches.some(s => s.id === entity.entity_id)) {
+            switches.push(mapEntity(entity));
         }
     }
 

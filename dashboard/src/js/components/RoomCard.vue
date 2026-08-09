@@ -4,7 +4,7 @@ import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import EntityTile from "./EntityTile.vue";
 import {resolveRoomIcon} from "../utils/roomIcon.js";
 import {getRoomStats} from "../utils/roomStats.js";
-import {CUSTOM_CARDS} from "../constants/customCards.js";
+import {CUSTOM_CARDS} from "../customs/registry.js";
 
 const props = defineProps({
     room: {type: Object, required: true},
