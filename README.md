@@ -154,11 +154,9 @@ This project is licensed under GNU AGPL v3.0 - see the LICENSE.txt file for deta
 
 # WIP
 
-- Moonraker
 - Windy
 - Spotify
 - Telegram
 - Thread
 - Toyota EU
-- Tuya
 - Traduction

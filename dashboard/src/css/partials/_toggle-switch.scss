@@ -1,30 +1,30 @@
 .toggle {
-    width: 34px;
-    height: 18px;
-    border-radius: 99px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    padding: 2px;
-    transition: background 0.4s ease, border-color 0.4s ease;
-    flex-shrink: 0;
+  width: 34px;
+  height: 18px;
+  border-radius: 99px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-toggle);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  transition: background 0.4s ease, border-color 0.4s ease;
+  flex-shrink: 0;
 }
 
 .toggle.on {
-    background: var(--accent);
-    border-color: var(--accent-strong);
+  background: var(--accent);
+  border-color: var(--accent-strong);
 }
 
 .toggle-knob {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--muted);
-    transition: transform 0.4s ease, background 0.4s ease;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: transform 0.4s ease, background 0.4s ease;
 }
 
 .toggle.on .toggle-knob {
-    background: var(--bg);
-    transform: translateX(16px);
+  background: var(--bg);
+  transform: translateX(16px);
 }

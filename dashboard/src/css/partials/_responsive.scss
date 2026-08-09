@@ -1,0 +1,78 @@
+@media (max-width: 767px) {
+    body {
+        padding: 14px;
+    }
+
+    .rooms-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .room-card {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .room-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        padding: 0;
+    }
+
+    .room-card-title h2 {
+        font-size: 14px;
+    }
+
+    .room-count {
+        display: block;
+    }
+
+    .room-tiles {
+        grid-template-columns: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .entity-tile {
+        padding: 10px 12px;
+        justify-content: center;
+    }
+
+    .entity-tile-info {
+        display: none;
+    }
+
+    .entity-state {
+        display: none;
+    }
+
+    .entity-tile .toggle {
+        display: none;
+    }
+
+    .room-tiles.measure-wide .entity-tile {
+        flex: 0 0 auto;
+        width: max-content;
+    }
+
+    .room-tiles.measure-wide .entity-tile-info {
+        display: flex;
+        flex: none;
+    }
+
+    .room-card.wide .entity-tile-info {
+        display: flex;
+    }
+
+    .room-card.wide .entity-tile {
+        justify-content: flex-start;
+    }
+}

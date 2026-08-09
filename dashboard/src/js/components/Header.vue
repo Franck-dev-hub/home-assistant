@@ -14,7 +14,7 @@ const {theme, toggleTheme} = useTheme();
 </script>
 
 <template>
-  <header class="glass">
+  <header class="app-header glass">
     <div class="header-left">
     </div>
     <div

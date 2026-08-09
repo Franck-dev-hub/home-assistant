@@ -24,15 +24,26 @@ export const config = {
         {
             id: "kitchen",
             name: "Kitchen",
-            icon: "ChefHat", // lucide-vue-next icon name
-            lights: ["light.kitchen_light_1"],
-            switches: [],
+            icon: "ChefHat", // @tabler/icons-vue icon name
+            // Tile order here is display order - reorder freely to control layout.
+            tiles: [
+                {type: "light", id: "light.kitchen_light_1"},
+                {type: "switch", id: "switch.kitchen_outlet"},
+            ],
         },
     ],
 };
 ```
 
 No component changes needed, the room card and its tiles are generated automatically.
+
+### Custom tiles
+
+A tile can also be `{type: "custom", component: "someKey"}`, resolved against the registry in
+`src/js/constants/customCards.js`  
+Used for entities that need richer UI than a simple light/switch toggle (e.g. the 3D printer tile: power switch, live
+temps/progress/camera feed, opens a modal with a link to Fluidd).  
+Add a new key to the registry and its config block (see `PRINTER` in `config.js`) to add another custom tile type.
 
 ## Local development
 

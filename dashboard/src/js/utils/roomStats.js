@@ -1,8 +1,7 @@
-// Counts active/total entities across a room's lights and switches
 export function getRoomStats(room) {
-    const all = [...room.lights, ...room.switches];
+    const countable = room.tiles.filter(t => t.type === "light" || t.type === "switch");
     return {
-        active: all.filter(e => e.isActive).length,
-        total: all.length,
+        active: countable.filter(t => t.isActive).length,
+        total: countable.length,
     };
 }

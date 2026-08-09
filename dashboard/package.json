@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdi/js": "^7.4.47",
     "@tabler/icons-vue": "^3.46.0",
     "axios": "^1.13.6",
     "vue": "^3.5.22"

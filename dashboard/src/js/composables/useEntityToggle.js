@@ -1,23 +1,24 @@
-import {ref} from "vue";
 import {toggleLight, toggleSwitch} from "../api/toggleEntity.js";
+import {useOptimisticValue} from "./useOptimisticValue.js";
+import {setLightActive, setSwitchActive} from "./dashboardStore.js";
+
+const STORE_SETTERS = {
+    light: setLightActive,
+    switch: setSwitchActive,
+};
 
 const TOGGLERS = {
     light: toggleLight,
     switch: toggleSwitch,
 };
 
-// Optimistic on/off toggle for a single HA entity, with rollback on failure
 export function useEntityToggle(entity, type) {
-    const active = ref(entity.isActive);
+    const {value: active, commit} = useOptimisticValue(() => entity.isActive);
 
-    async function toggle() {
-        const prev = active.value;
-        active.value = !prev;
-        try {
-            await TOGGLERS[type](entity.id, prev);
-        } catch {
-            active.value = prev;
-        }
+    function toggle() {
+        const wasActive = active.value;
+        STORE_SETTERS[type](entity.id, !wasActive);
+        commit(!wasActive, () => TOGGLERS[type](entity.id, wasActive));
     }
 
     return {active, toggle};

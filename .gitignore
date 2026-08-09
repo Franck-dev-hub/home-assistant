@@ -1,6 +1,7 @@
 # Environment
 .env.local
 dashboard/config.js
+dashboard/config/*
 
 # IDEs
 .idea/
@@ -28,3 +29,6 @@ zigbee2mqtt/
 # OS & Trash
 .DS_Store
 README.html
+
+# pnpm
+dashboard/.pnpm-store/

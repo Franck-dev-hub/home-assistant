@@ -15,6 +15,8 @@ const HEADERS = {
 const ALLOWED_SERVICES = {
     light: ["turn_on", "turn_off"],
     switch: ["turn_on", "turn_off"],
+    number: ["set_value"],
+    button: ["press"],
 };
 
 const app = express();

@@ -1,0 +1,192 @@
+.printer-modal-section {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.printer-power-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.printer-icon-circle {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease, background 0.3s ease;
+}
+
+.printer-power-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.printer-power-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.printer-power-status {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+.printer-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.printer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.printer-progress-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    overflow: hidden;
+}
+
+.printer-progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.printer-control-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+}
+
+.printer-control-label {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+    width: 110px;
+    flex-shrink: 0;
+}
+
+.printer-fan-slider {
+    flex: 1;
+    appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--surface-2);
+    outline: none;
+
+    &::-webkit-slider-thumb {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--accent);
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    &::-webkit-slider-thumb:hover {
+        background: var(--accent-strong);
+    }
+
+    &::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        border: none;
+        border-radius: 50%;
+        background: var(--accent);
+        cursor: pointer;
+    }
+}
+
+.printer-fan-value {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    width: 34px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.printer-open-link {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+        background: var(--accent-strong);
+    }
+}
+
+.printer-camera {
+    width: 100%;
+    display: block;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+}
+
+.printer-icon-button-row {
+    display: flex;
+    gap: 10px;
+}
+
+.printer-icon-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover {
+        opacity: 0.85;
+    }
+
+    &.on {
+        background: var(--warm-soft);
+        color: var(--warm);
+    }
+
+    &.warm {
+        background: var(--warm-soft);
+        color: var(--warm);
+    }
+
+    &.danger {
+        background: var(--danger-soft);
+        color: var(--danger);
+    }
+}
