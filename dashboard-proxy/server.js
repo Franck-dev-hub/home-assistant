@@ -28,6 +28,21 @@ app.get("/states", async (_req, res) => {
     res.status(response.status).json(data);
 });
 
+app.get("/camera_proxy/:entityId", async (req, res) => {
+    const {entityId} = req.params;
+    if (!/^camera\.[a-z0-9_]+$/.test(entityId)) {
+        return res.status(400).json({error: "Invalid entity id"});
+    }
+
+    const response = await fetch(`${HA_URL}/api/camera_proxy/${entityId}`, {
+        headers: {"Authorization": HEADERS.Authorization},
+    });
+    res.status(response.status);
+    res.set("Content-Type", response.headers.get("content-type") ?? "image/jpeg");
+    const buffer = Buffer.from(await response.arrayBuffer());
+    res.send(buffer);
+});
+
 app.post("/services/:domain/:service", async (req, res) => {
     const {domain, service} = req.params;
     if (!ALLOWED_SERVICES[domain]?.includes(service)) {

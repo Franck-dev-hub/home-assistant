@@ -51,7 +51,15 @@ export async function getRooms() {
         const tiles = room.tiles
             .map(tile => {
                 if (tile.type === "custom") {
-                    return tile;
+                    const config = CUSTOM_CONFIGS.find(c => c.component === tile.component && c.powerSwitch);
+                    if (!config) {
+                        return tile;
+                    }
+                    const entity = byId.get(config.powerSwitch);
+                    if (!entity) {
+                        return tile;
+                    }
+                    return {...tile, category: config.category, isActive: mapEntity(entity).isActive};
                 }
                 const entity = byId.get(tile.id);
                 if (!entity) {
