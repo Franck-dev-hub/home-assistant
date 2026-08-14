@@ -31,7 +31,7 @@ const statusText = computed(() => {
     if (!props.powerActive) return "Éteinte";
     if (isConnecting.value) return "Connexion...";
     const label = printerStateLabel(props.printer.state);
-    return isPrinting.value ? `${label} — ${progressPercent.value}%` : label;
+    return isPrinting.value ? `${label} ${progressPercent.value}%` : label;
 });
 
 const {value: lightActive, commit: commitLight} = useOptimisticValue(() => props.printer.light.value > 0);
