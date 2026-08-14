@@ -2,6 +2,7 @@
 import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
 
 import EntityTile from "./EntityTile.vue";
+import ComfortTile from "../customs/comfort/components/ComfortTile.vue";
 import {resolveRoomIcon} from "../utils/roomIcon.js";
 import {getRoomStats} from "../utils/roomStats.js";
 import {CUSTOM_CARDS} from "../customs/registry.js";
@@ -43,6 +44,7 @@ watch(() => props.room.tiles, measure);
 
 const roomIcon = computed(() => resolveRoomIcon(props.room.icon));
 const stats = computed(() => getRoomStats(props.room));
+const comfortTile = computed(() => props.room.tiles.find(t => t.type === "custom" && t.component === "comfort"));
 </script>
 
 <template>
@@ -61,6 +63,12 @@ const stats = computed(() => getRoomStats(props.room));
         />
         <h2>{{ room.name }}</h2>
       </div>
+      <ComfortTile
+        v-if="comfortTile"
+        :tile="comfortTile"
+        inline
+        class="room-comfort-inline"
+      />
       <span class="room-count">{{ stats.active }} / {{ stats.total }} actif{{ stats.active > 1 ? 's' : '' }}</span>
     </header>
     <div
@@ -74,6 +82,7 @@ const stats = computed(() => getRoomStats(props.room));
         <component
           :is="CUSTOM_CARDS[tile.component]"
           v-if="tile.type === 'custom'"
+          :tile="tile"
         />
         <EntityTile
           v-else
