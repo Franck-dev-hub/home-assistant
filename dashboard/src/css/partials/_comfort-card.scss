@@ -1,0 +1,127 @@
+.comfort-card {
+    display: none;
+    cursor: pointer;
+    grid-column: 1 / -1;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    -webkit-backdrop-filter: blur(var(--surface-blur));
+    backdrop-filter: blur(var(--surface-blur));
+}
+
+.comfort-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.comfort-bar-icon {
+    flex-shrink: 0;
+    color: var(--muted);
+}
+
+.comfort-bar-value {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    width: 34px;
+    flex-shrink: 0;
+    text-align: left;
+}
+
+.comfort-bar-track {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--surface);
+    overflow: hidden;
+}
+
+.comfort-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.comfort-gauge-mobile {
+    display: none;
+}
+
+.comfort-card-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+    margin: 0 16px;
+    padding: 0;
+    border: none;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+.comfort-card-inline .comfort-bar-row {
+    width: 100%;
+    max-width: 220px;
+    gap: 6px;
+}
+
+.comfort-card-inline .comfort-bar-value {
+    font-size: 11px;
+    width: 28px;
+}
+
+.comfort-card-inline .comfort-bar-track {
+    height: 6px;
+    background: transparent !important;
+    border-radius: 0;
+    overflow: visible;
+}
+
+@media (max-width: 767px) {
+    .comfort-card:not(.comfort-card-inline) {
+        display: block;
+        grid-column: auto;
+        width: auto;
+        flex: 0 0 auto;
+        padding: 0;
+        border: none;
+        background: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .comfort-card:not(.comfort-card-inline) .comfort-bar-row {
+        display: none;
+    }
+
+    .comfort-card-inline {
+        display: none;
+    }
+
+    .comfort-gauge-mobile {
+        display: flex;
+        flex-direction: column;
+        width: 49.6px;
+        height: 49.6px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+    }
+
+    .comfort-gauge-half {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+    }
+}
