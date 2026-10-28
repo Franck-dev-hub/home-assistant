@@ -54,7 +54,7 @@ cd zigbee2mqtt
 npm install
 ```
 
-4. Create zigbee config file (copy paste in your terminal)
+4. Create zigbee config file (copy and paste in your terminal)
 
 ```bash
 mkdir -r zigbee2mqtt/data/configuration.yaml

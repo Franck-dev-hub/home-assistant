@@ -24,28 +24,29 @@
   description: Daily backup reload, with retry.
   triggers:
   - trigger: time
-    at: "04:00:00"
+    at: 04:00:00
   conditions: []
   actions:
+  - delay: 00:05:00
   - repeat:
       until:
       - condition: template
-        value_template: >-
-          {{ (integration_entities('tuya') | select('is_state', 'unavailable') | list | length == 0) or repeat.index >= 5 }}
+        value_template: '{{ (integration_entities(''tuya'') | select(''is_state'',
+          ''unavailable'') | list | length == 0) or repeat.index >= 5 }}'
       sequence:
       - action: homeassistant.reload_config_entry
         metadata: {}
         data:
           entry_id: 01KZK85WJY1W6046F4QQV02TQC
-      - delay: "00:01:30"
+      - delay: 00:05:00
   - if:
     - condition: template
-      value_template: >-
-        {{ integration_entities('tuya') | select('is_state', 'unavailable') | list | length > 0 }}
+      value_template: '{{ integration_entities(''tuya'') | select(''is_state'', ''unavailable'')
+        | list | length > 0 }}'
     then:
     - action: persistent_notification.create
       data:
-        title: "Tuya still offline"
+        title: Tuya still offline
         message: 5 reload attempts failed. Manual reauth likely needed.
         notification_id: tuya_reload_failed
   mode: single
@@ -59,31 +60,63 @@
       level: ERROR
   conditions:
   - condition: template
-    value_template: >-
-      {{ 'tuya_sharing' in (trigger.event.data.exception | default('')) or
-         'API_QPS_LIMIT_OR_DEGRADE' in (trigger.event.data.exception | default('')) or
-         'for tuya' in (trigger.event.data.message | default([]) | join(' ')) or
-         'tuya_sharing' in (trigger.event.data.message | default([]) | join(' ')) }}
+    value_template: "{{ 'tuya_sharing' in (trigger.event.data.exception | default(''))
+      or\n   'API_QPS_LIMIT_OR_DEGRADE' in (trigger.event.data.exception | default(''))
+      or\n   'for tuya' in (trigger.event.data.message | default([]) | join(' '))
+      or\n   'tuya_sharing' in (trigger.event.data.message | default([]) | join('
+      ')) }}"
   actions:
+  - delay: 00:05:00
   - repeat:
       until:
       - condition: template
-        value_template: >-
-          {{ (integration_entities('tuya') | select('is_state', 'unavailable') | list | length == 0) or repeat.index >= 5 }}
+        value_template: '{{ (integration_entities(''tuya'') | select(''is_state'',
+          ''unavailable'') | list | length == 0) or repeat.index >= 5 }}'
       sequence:
       - action: homeassistant.reload_config_entry
         metadata: {}
         data:
           entry_id: 01KZK85WJY1W6046F4QQV02TQC
-      - delay: "00:01:30"
+      - delay: 00:05:00
   - if:
     - condition: template
-      value_template: >-
-        {{ integration_entities('tuya') | select('is_state', 'unavailable') | list | length > 0 }}
+      value_template: '{{ integration_entities(''tuya'') | select(''is_state'', ''unavailable'')
+        | list | length > 0 }}'
     then:
     - action: persistent_notification.create
       data:
-        title: "Tuya still offline"
+        title: Tuya still offline
+        message: 5 reload attempts failed. Manual reauth likely needed.
+        notification_id: tuya_reload_failed
+  mode: single
+- id: '1787217435579'
+  alias: Tuya loop
+  description: Reload Tuya daily
+  triggers:
+  - trigger: time
+    at: 00:00:00
+  conditions: []
+  actions:
+  - delay: 00:05:00
+  - repeat:
+      until:
+      - condition: template
+        value_template: '{{ (integration_entities(''tuya'') | select(''is_state'',
+          ''unavailable'') | list | length == 0) or repeat.index >= 5 }}'
+      sequence:
+      - action: homeassistant.reload_config_entry
+        metadata: {}
+        data:
+          entry_id: 01KZK85WJY1W6046F4QQV02TQC
+      - delay: 00:05:00
+  - if:
+    - condition: template
+      value_template: '{{ integration_entities(''tuya'') | select(''is_state'', ''unavailable'')
+        | list | length > 0 }}'
+    then:
+    - action: persistent_notification.create
+      data:
+        title: Tuya still offline
         message: 5 reload attempts failed. Manual reauth likely needed.
         notification_id: tuya_reload_failed
   mode: single
