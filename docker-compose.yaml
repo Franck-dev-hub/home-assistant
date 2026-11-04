@@ -5,7 +5,7 @@ services:
     container_name: homeassistant
     restart: always
     ports:
-      - "8123:8123"
+      - "127.0.0.1:8123:8123"
     volumes:
       - ./homeassistant_config:/config
       - /etc/localtime:/etc/localtime:ro
@@ -126,7 +126,7 @@ services:
     container_name: dashboard
     restart: always
     ports:
-      - "8880:80"
+      - "127.0.0.1:8880:80"
     volumes:
       - ./dashboard/config.js:/usr/share/nginx/html/config.js
     depends_on:
